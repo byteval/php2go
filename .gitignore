@@ -1,0 +1,8 @@
+.idea/
+third_party/
+.vscode/
+vendor/
+vendor.cp/
+*__debug_bin
+.env
+.gitconfig

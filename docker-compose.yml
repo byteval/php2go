@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:14
+    container_name: go_db
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_EXTERNAL_PORT}:5432"
+    volumes:
+      - ${DB_EXTERNAL_DATA}:/var/lib/postgresql/data
+    networks:
+      - go_network
+
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.dev 
+  #   container_name: go_app
+  #   ports:
+  #     - "8080:8080"
+  #     - "40000:40000"  # Порт Delve
+  #   environment:
+  #     DB_HOST: postgres
+  #     DB_PORT: 5432
+  #     DB_USER: ${DB_USER}
+  #     DB_PASSWORD: ${DB_PASS}
+  #     DB_NAME: ${DB_NAME}
+  #   volumes:
+  #     - .:/app  
+  #   networks:
+  #     - go_network
+  #   cap_add:
+  #     - SYS_PTRACE  # Необходимо для отладки
+
+volumes:
+  postgres_data:
+
+networks:
+  go_network:
